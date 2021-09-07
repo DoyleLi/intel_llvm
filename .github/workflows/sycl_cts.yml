@@ -22,6 +22,7 @@ jobs:
         persist-credentials: false
         fetch-depth: 1
         repository: otcshare/llvm_ci
+        token: ${{ secrets.DOYLELI_DEBUG_TOKEN }}
         path: llvm_ci
         ref: master
 
