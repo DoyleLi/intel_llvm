@@ -41,15 +41,15 @@ jobs:
 
     - name: Dependency Step
       run: |
-        python3 -u llvm.src/buildbot/dependency.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj -c
+        python3 -u llvm.src/buildbot/dependency.py -n $GITHUB_RUN_NUMBER -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj -c
 
     - name: Configure Step
       run: |
-        python3 -u llvm.src/buildbot/configure.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -t Release -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
+        python3 -u llvm.src/buildbot/configure.py -n $GITHUB_RUN_NUMBER -b sycl -d sycl -t Release -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
 
     - name: Build Step
       run: |
-        python3 -u llvm.src/buildbot/compile.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
+        python3 -u llvm.src/buildbot/compile.py -n $GITHUB_RUN_NUMBER -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
 
 
 
