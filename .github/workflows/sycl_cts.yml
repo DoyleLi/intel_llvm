@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Prepare Env 
-      run: sudo apt-get install -y ninja-build cmake
+      run: sudo apt-get install -y ninja-build cmake build-essential
  
     - uses: actions/checkout@v2
       with:
@@ -35,8 +35,12 @@ jobs:
       with:
         python-version: '3.7.8'
 
+    - name: Run compile 
+      run: |
+        mkdir llvm.obj
+
     - name: Run dependency
       run: |
-        python3 -u llvm.src/buildbot/dependency.py -n 702 -b sycl -d sycl -w $PWD -s llvm.src -o llvm.obj -c
+        python3 -u llvm.src/buildbot/dependency.py -n 702 -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj -c
 
 
