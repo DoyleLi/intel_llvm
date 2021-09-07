@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
     - sycl
-     paths:
-      - '.github/workflows/sycl_cts.yml'
+    paths:
+    - '.github/workflows/sycl_cts.yml'
 
 jobs:
   build:
