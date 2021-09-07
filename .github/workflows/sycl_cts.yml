@@ -16,7 +16,12 @@ jobs:
  
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 2
+        fetch-depth: 1
+
+    - uses: otcshare/llvm_ci@master
+      with:
+        fetch-depth: 1
+
         
     - uses: actions/setup-python@v2
       with:
