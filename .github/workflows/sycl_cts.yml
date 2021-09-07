@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Prepare Env 
       run: sudo apt-get install -y ninja-build cmake
@@ -21,7 +21,6 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: '3.7.8'
-        architecture: 'x86'
 
     - name: Run dependency
       run: |
