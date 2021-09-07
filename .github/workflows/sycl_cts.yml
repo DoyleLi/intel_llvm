@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Get clang-format first
+    - name: Prepare Env 
       run: sudo apt-get install -y ninja cmake 
 
     - uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
         python-version: '3.7.8'
         architecture: 'x86'
 
-    - name: Run dependency:
+    - name: Run dependency
       run: |
         python3 llvm_ci/intel/worker/tools/build.py -b sycl -p sycl -s dependency -c
 
