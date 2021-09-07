@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Prepare Env 
-      run: sudo apt-get install -y ninja cmake 
-
+      run: sudo apt-get install -y ninja-build cmake
+ 
     - uses: actions/checkout@v2
       with:
         fetch-depth: 2
