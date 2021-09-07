@@ -1,0 +1,29 @@
+name: clang-format-check
+
+on:
+  pull_request:
+    branches:
+    - sycl
+     paths:
+      - '.github/workflows/sycl_cts.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get clang-format first
+      run: sudo apt-get install -y ninja cmake 
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+        
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.7.8'
+        architecture: 'x86'
+
+    - name: Run dependency:
+      run: |
+        python3 llvm_ci/intel/worker/tools/build.py -b sycl -p sycl -s dependency -c
+
