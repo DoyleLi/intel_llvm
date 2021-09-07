@@ -16,13 +16,19 @@ jobs:
  
     - uses: actions/checkout@v2
       with:
+        # persist-credentials: false allows us to use our own credentials for
+        # pushing to the repository.  Otherwise, the default github actions token
+        # is used.
+        persist-credentials: false
         fetch-depth: 1
+        repository: otcshare/llvm_ci
+        path: llvm_ci
 
-    - uses: otcshare/llvm_ci@master
+    - uses: actions/checkout@v2
       with:
         fetch-depth: 1
+        path: llvm.src
 
-        
     - uses: actions/setup-python@v2
       with:
         python-version: '3.7.8'
