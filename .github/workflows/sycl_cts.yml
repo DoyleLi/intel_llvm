@@ -21,8 +21,9 @@ jobs:
         # is used.
         persist-credentials: false
         fetch-depth: 1
-        repository: otcshare/llvm_ci
+        name: otcshare/llvm_ci
         path: llvm_ci
+        ref: master
 
     - uses: actions/checkout@v2
       with:
