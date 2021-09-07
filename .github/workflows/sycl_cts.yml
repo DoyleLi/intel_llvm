@@ -37,6 +37,6 @@ jobs:
 
     - name: Run dependency
       run: |
-        python3 llvm_ci/intel/worker/tools/build.py -b sycl -p sycl -s dependency -c
+        python3 -u llvm.src/buildbot/dependency.py -n 702 -b sycl -d sycl -w $PWD -s llvm.src -o llvm.obj -c
 
 
