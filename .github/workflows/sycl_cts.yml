@@ -1,4 +1,4 @@
-name: clang-format-check
+name: sycl_cts_cpu
 
 on:
   pull_request:
@@ -14,6 +14,12 @@ jobs:
     - name: Prepare Env 
       run: sudo apt-get install -y ninja-build cmake build-essential
  
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        path: llvm.src
+
     - uses: actions/checkout@v2
       with:
         # persist-credentials: false allows us to use our own credentials for
@@ -21,15 +27,10 @@ jobs:
         # is used.
         persist-credentials: false
         fetch-depth: 1
-        repository: otcshare/llvm_ci
+        repository: KhronosGroup/SYCL-CTS
         token: ${{ secrets.DOYLELI_DEBUG_TOKEN }}
-        path: llvm_ci
-        ref: master
-
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
-        path: llvm.src
+        path: icl_tst-sycl-cts
+        ref: a80827e6d3cc0d92327ebe91c0a687807b972d65
 
     - uses: actions/setup-python@v2
       with:
@@ -50,6 +51,16 @@ jobs:
     - name: Build Step
       run: |
         python3 -u llvm.src/buildbot/compile.py -n $GITHUB_RUN_NUMBER -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
+
+    - name: SYCL_CTS Step
+      run: |
+        mkdir build
+        cd build; cmake -G "Ninja" -DSYCL_IMPLEMENTATION=Intel_SYCL -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS_RELEASE="" -DINTEL_SYCL_ROOT=$PWD/..//llvm.obj -DOpenCL_INCLUDE_DIR=$PWD/..//llvm.obj/include/sycl -DOpenCL_LIBRARY=$PWD/..//llvm.obj/lib/libOpenCL.so -Dopencl_platform_name=intel -Dopencl_device_name=opencl_cpu $PWD/..//icl_tst-sycl-cts
+        ninja -j 2
+        ctest --verbose -j 2 -R test_buffer_opencl$ --timeout 2800
+
+
+
 
 
 
