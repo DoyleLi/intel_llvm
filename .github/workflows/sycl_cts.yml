@@ -35,12 +35,22 @@ jobs:
       with:
         python-version: '3.7.8'
 
-    - name: Run compile 
+    - name: Prepare obj folder
       run: |
         mkdir llvm.obj
 
-    - name: Run dependency
+    - name: Dependency Step
       run: |
-        python3 -u llvm.src/buildbot/dependency.py -n 702 -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj -c
+        python3 -u llvm.src/buildbot/dependency.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj -c
+
+    - name: Configure Step
+      run: |
+        python3 -u llvm.src/buildbot/configure.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -t Release -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
+
+    - name: Build Step
+      run: |
+        python3 -u llvm.src/buildbot/compile.py -n ${{ GITHUB_RUN_NUMBER }} -b sycl -d sycl -w $PWD -s $PWD/llvm.src -o $PWD/llvm.obj
+
+
 
 
